@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Minhas Memórias</h1>
+
+    <!-- Galeria de fotos -->
+    <div class="galeria"> 
+        <img class="foto" src="imagens/foto1.jpg" alt="Foto 1">
+        <img class="foto" src="imagens/foto2.jpg" alt="Foto 2">
+        <img class="foto" src="imagens/foto3.jpg" alt="Foto 3">
+        <img class="foto" src="imagens/foto4.jpg" alt="Foto 4">
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" onclick="fecharModal()">
+      <img id="modal-img">
+    </div>
+
+    <script>
+        // Função para revelar fotos ao scroll
+        function revelarFotos() {
+            const fotos = document.querySelectorAll('.foto');
+            const trigger = window.innerHeight * 0.85;
+
+            fotos.forEach(foto => {
+                const top = foto.getBoundingClientRect().top;
+                if (top < trigger) {
+                    foto.classList.add('revelada');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revelarFotos);
+        window.addEventListener('load', revelarFotos);
+
+        // Modal das imagens
+        const fotos = document.querySelectorAll('.foto');
+
+        fotos.forEach(foto => {
+          foto.addEventListener('click', () => {
+            abrirModal(foto.src);
+          });
+        });
+
+        function abrirModal(src) {
+          const modal = document.getElementById('modal');
+          const modalImg = document.getElementById('modal-img');
+          modal.style.display = 'flex';
+          modalImg.src = src;
+        }
+
+        function fecharModal() {
+          document.getElementById('modal').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
